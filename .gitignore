@@ -1,0 +1,16 @@
+# .gitignore for YouTube Equalizer & Normalizer Disabler
+
+# Hardware-specific/OS files
+.DS_Store
+Thumbs.db
+
+# ZIP packages (for publication)
+*.zip
+
+# Temporary/Brain files
+.gemini/
+brain/
+
+# Promotion assets (optional to ignore, but usually kept out of source code if large)
+# promo_small.png
+# promo_marquee.png

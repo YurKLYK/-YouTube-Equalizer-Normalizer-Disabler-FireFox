@@ -1,0 +1,297 @@
+/* Equalizer Container */
+.yt-eq-container {
+    position: absolute;
+    bottom: 60px;
+    /* Above the video control bar */
+    right: 20px;
+    width: max-content !important;
+    min-width: 540px !important;
+    background-color: rgba(12, 12, 12, 0.85) !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    border-radius: 12px !important;
+    box-shadow: 0 4px 64px rgba(0, 0, 0, 0.8) !important;
+    font-family: 'Roboto', 'Arial', sans-serif !important;
+    color: #f1f1f1 !important;
+    /* YouTube primary text */
+    z-index: 9999;
+    display: none;
+    flex-direction: column;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    /* Subtle inner border */
+    user-select: none;
+    overflow: hidden !important;
+}
+
+.yt-eq-container.yt-eq-visible {
+    display: flex !important;
+}
+
+/* Force border-box sizing to stop YouTube global CSS interference */
+.yt-eq-container * {
+    box-sizing: border-box !important;
+}
+
+/* EQ Header */
+.yt-eq-header {
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    background-color: transparent !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+    padding: 0 16px !important;
+    height: 52px !important;
+}
+
+.yt-eq-title-main {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 12px !important;
+    margin-right: 12px !important;
+    margin-left: 4px !important;
+}
+
+.yt-eq-title-text {
+    font-size: 14px !important;
+    font-weight: 500 !important;
+    color: #f1f1f1 !important;
+}
+
+/* Basic Mode (3-Knob Rotary) */
+.yt-eq-basic-controls {
+    display: flex !important;
+    justify-content: space-around !important;
+    align-items: center !important;
+    width: 100% !important;
+    padding: 30px 10px 40px !important;
+    /* Extra padding for spacious look */
+}
+
+.yt-eq-knob-container {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    gap: 20px !important;
+}
+
+.yt-eq-knob-label {
+    font-size: 14px !important;
+    color: #f1f1f1 !important;
+    font-weight: 500 !important;
+}
+
+/* Knob Sizing */
+.yt-eq-knob-wrapper {
+    position: relative !important;
+    width: 84px !important;
+    height: 84px !important;
+    cursor: ns-resize !important;
+}
+
+/* Background dark ring */
+.yt-eq-knob-bg {
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    border-radius: 50% !important;
+    background: conic-gradient(from 225deg, rgba(255, 255, 255, 0.08) 270deg, transparent 270deg) !important;
+}
+
+/* Foreground value ring (The Meter) */
+.yt-eq-knob-fg {
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    border-radius: 50% !important;
+    background: conic-gradient(from 225deg, transparent 0deg, transparent 270deg) !important;
+    /* Set via JS */
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.4) !important;
+    filter: drop-shadow(0 0 2px rgba(255, 255, 255, 0.8)) !important;
+}
+
+/* Cutout center (The Dial) */
+.yt-eq-knob-center {
+    position: absolute !important;
+    top: 6px !important;
+    /* 6px thickness for the meter ring */
+    left: 6px !important;
+    width: 72px !important;
+    height: 72px !important;
+    border-radius: 50% !important;
+    background-color: #1f1f1f !important;
+    /* solid dark gray dial */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.6), inset 0 1px 2px rgba(255, 255, 255, 0.1) !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    z-index: 2 !important;
+}
+
+/* The indicator line inside the center */
+.yt-eq-knob-indicator {
+    position: absolute !important;
+    width: 3px !important;
+    height: 12px !important;
+    background-color: #ffffff !important;
+    top: 6px !important;
+    border-radius: 1.5px !important;
+    transform-origin: 50% 30px !important;
+    /* Half of 72px minus top offset */
+}
+
+.yt-eq-knob-value {
+    padding: 4px 8px !important;
+    border-radius: 4px !important;
+    font-size: 12px !important;
+    color: #aaaaaa !important;
+    min-width: 48px !important;
+    text-align: center !important;
+    background-color: transparent !important;
+}
+
+.yt-eq-close {
+    cursor: pointer !important;
+    background: none !important;
+    border: none !important;
+    color: #f1f1f1 !important;
+    font-size: 20px !important;
+    padding: 8px !important;
+    margin: 0 !important;
+    line-height: 1 !important;
+    border-radius: 50% !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+}
+
+.yt-eq-close:hover {
+    background-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+.ytp-eq-button.ytp-button {
+    width: 40px;
+    height: 36px;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    vertical-align: top;
+    cursor: pointer;
+}
+
+.ytp-eq-button svg {
+    fill: #fff;
+    width: 20px;
+    height: 20px;
+}
+
+/* Footer & Normalizer Toggle */
+.yt-eq-footer {
+    padding: 14px 20px !important;
+    background-color: transparent !important;
+    font-size: 15px !important;
+    /* Increased text size */
+    color: #aaaaaa !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: flex-end !important;
+    /* Keeps reset button right-aligned */
+    gap: 16px !important;
+    border-top: 1px solid rgba(255, 255, 255, 0.1) !important;
+    width: 100% !important;
+}
+
+.yt-eq-footer-left {
+    display: flex !important;
+    flex-direction: column !important;
+    width: 100% !important;
+    /* Full width for space-between */
+    gap: 12px !important;
+    /* Slightly more breathing room */
+}
+
+.yt-eq-toggle-wrapper {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    /* Text left, Switch right */
+    width: 100% !important;
+}
+
+.yt-eq-toggle-wrapper>span:first-child {
+    margin-left: 8px !important;
+}
+
+.yt-eq-reset-btn {
+    background: transparent !important;
+    border: none !important;
+    color: #f1f1f1 !important;
+    font-size: 14px !important;
+    font-weight: 500 !important;
+    padding: 6px 12px !important;
+    border-radius: 18px !important;
+    cursor: pointer !important;
+    transition: background-color 0.2s !important;
+}
+
+.yt-eq-reset-btn:hover {
+    background: rgba(255, 255, 255, 0.1) !important;
+}
+
+/* Toggle Switch CSS */
+.yt-eq-switch {
+    position: relative !important;
+    display: inline-block !important;
+    width: 38px !important;
+    /* Increased width */
+    height: 22px !important;
+    /* Increased height */
+}
+
+.yt-eq-switch input {
+    opacity: 0 !important;
+    width: 0 !important;
+    height: 0 !important;
+}
+
+.yt-eq-slider-toggle {
+    position: absolute !important;
+    cursor: pointer !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    background-color: rgba(255, 255, 255, 0.1) !important;
+    transition: .3s !important;
+    border-radius: 22px !important;
+    /* Match height */
+}
+
+.yt-eq-slider-toggle:before {
+    position: absolute !important;
+    content: "" !important;
+    height: 16px !important;
+    /* Increased thumb size */
+    width: 16px !important;
+    /* Increased thumb size */
+    left: 3px !important;
+    bottom: 3px !important;
+    background-color: #aaaaaa !important;
+    transition: .2s !important;
+    border-radius: 50% !important;
+}
+
+input:checked+.yt-eq-slider-toggle {
+    background-color: rgba(255, 255, 255, 0.6) !important;
+    /* White trace */
+}
+
+input:checked+.yt-eq-slider-toggle:before {
+    transform: translateX(16px) !important;
+    /* Adjusted for new width */
+    background-color: #ffffff !important;
+}
