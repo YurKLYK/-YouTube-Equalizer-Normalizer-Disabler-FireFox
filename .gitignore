@@ -6,6 +6,10 @@ Thumbs.db
 
 # ZIP packages (for publication)
 *.zip
+*.xpi
+
+# Build artifacts
+dist/
 
 # Temporary/Brain files
 .gemini/

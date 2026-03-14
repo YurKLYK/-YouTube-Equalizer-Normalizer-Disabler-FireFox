@@ -53,6 +53,29 @@ const DEFAULT_SETTINGS = {
 
 let eqSettings = { ...DEFAULT_SETTINGS };
 
+function getPageWindow() {
+    return window.wrappedJSObject || window;
+}
+
+function getUnwrappedElement(element) {
+    if (!element) return null;
+    return element.wrappedJSObject || element;
+}
+
+function getPlayerResponse(moviePlayer) {
+    const unsafePlayer = getUnwrappedElement(moviePlayer);
+    if (!unsafePlayer || typeof unsafePlayer.getPlayerResponse !== 'function') {
+        return null;
+    }
+
+    try {
+        return unsafePlayer.getPlayerResponse();
+    } catch (e) {
+        console.warn('[YT EQ] Failed to read player response', e);
+        return null;
+    }
+}
+
 // Load settings
 function loadSettings() {
     const saved = localStorage.getItem('yt-eq-settings');
@@ -164,11 +187,12 @@ function applyLimiterSettings() {
 
 function applyNormalizerGain() {
     const moviePlayer = document.getElementById('movie_player');
-    if (!moviePlayer || typeof moviePlayer.getPlayerResponse !== 'function') return;
+    if (!moviePlayer) return;
 
-    const playerResponse = moviePlayer.getPlayerResponse();
+    const playerResponse = getPlayerResponse(moviePlayer);
+    const pageWindow = getPageWindow();
     const config = playerResponse?.playerConfig?.audioConfig ||
-        window.ytInitialPlayerResponse?.playerConfig?.audioConfig;
+        pageWindow.ytInitialPlayerResponse?.playerConfig?.audioConfig;
 
     const loudnessDb = config?.loudnessDb || 0;
 
@@ -539,8 +563,9 @@ function init() {
         const video = document.querySelector('video');
         const moviePlayer = document.getElementById('movie_player');
         const controls = document.querySelector('.ytp-right-controls');
+        const hasPlayerResponse = !!getPlayerResponse(moviePlayer);
 
-        if (video && moviePlayer && typeof moviePlayer.getPlayerResponse === 'function' && controls) {
+        if (video && moviePlayer && hasPlayerResponse && controls) {
             clearInterval(checkPlayer);
 
             initWebAudio(video);
